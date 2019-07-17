@@ -33,7 +33,22 @@ namespace Services.Tests.UsersTests
                 () => actualUser.Blog.ShouldBe(_expectedUser.Blog),
                 () => actualUser.Avatar_url.ShouldBe(_expectedUser.Avatar_url),
                 () => actualUser.Login.ShouldBe(_expectedUser.Login),
-                () => actualUser.ShouldBe(_expectedUser),
+                () => response.ResponseMessage.StatusCode.ShouldBe(HttpStatusCode.OK)
+            );
+        }
+
+        [Fact]
+        public void GettingUserFollowers_ByUserId_ReturnsExpectedResults200()
+        {
+            TestData data = new TestData("canton7");
+            // User _expectedUser = data.LoadTestData("canton7");
+            var response = _githubService.GetUserFollowersById("skow0020").Result;
+            var responseContent = response.GetContent();
+            var follower1 = responseContent[0]
+;
+            this.ShouldSatisfyAllConditions(
+                () => follower1.Login.ShouldBe("colinclassic"),
+                () => follower1.Id.ShouldBe(12262884),
                 () => response.ResponseMessage.StatusCode.ShouldBe(HttpStatusCode.OK)
             );
         }
@@ -42,7 +57,6 @@ namespace Services.Tests.UsersTests
         public void GettingUser_ByInvalidUserId_ReturnsNoData404()
         {
             var response = _githubService.GetUserById("IncorrectUser123").Result;
-
             this.ShouldSatisfyAllConditions(
                 () => response.ResponseMessage.StatusCode.ShouldBe(HttpStatusCode.NotFound),
                 () => response.GetContent().Id.ShouldBe(0)

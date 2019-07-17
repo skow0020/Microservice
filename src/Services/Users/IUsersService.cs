@@ -1,6 +1,7 @@
 ﻿using RestEase;
 using Services.Users.Models;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Services.Users
 {
@@ -13,10 +14,10 @@ namespace Services.Users
         Task<Response<User>> GetUserById([Path] string userId);
 
         [Get("users/{userId}/followers")]
-        Task<Response<User>> GetUserFollowersById([Path] string userId);
+        Task<Response<List<User>>> GetUserFollowersById([Path] string userId);
 
         [Get("users/{userId}/following")]
-        Task<Response<User>> GetUserFollowingById([Path] string userId);
+        Task<Response<List<User>>> GetUserFollowingById([Path] string userId);
 
     }
 }

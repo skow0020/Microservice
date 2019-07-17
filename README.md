@@ -46,15 +46,18 @@ $ dotnet restore
 
 Test
 ```
+$ cd test/Services.Tests
 $ dotnet xunit
 ```
 
 Test a specific Microservice
 ```
+$ cd test/Services.Tests
 $ dotnet xunit -namespace "Services.Tests.UsersTests"
 ```
 
 Test a specific endpoint
 ```
+$ cd test/Services.Tests
 $ dotnet xunit -class "Services.Tests.UsersTests.GetUser"
 ```
